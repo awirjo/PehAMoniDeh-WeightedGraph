@@ -1,5 +1,7 @@
 package PehAMoniDeh;
 
+import PehAMoniDeh.entity.Abanies;
+
 public class Vertex {
     public boolean wasVisited;
     public boolean isInTree;

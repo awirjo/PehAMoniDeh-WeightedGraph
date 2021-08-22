@@ -1,14 +1,15 @@
 package PehAMoniDeh.Datastructure;
 
-public class Stack {
+import java.util.Arrays;
+
+public class PathStack {
     private final int SIZE = 20;
     private int[] abanieStack;
     private int top;
 
-    public Stack(){
+    public PathStack(){
         abanieStack = new int[SIZE];
         top = -1;
-
     }
 
     public void push(int item) {
@@ -19,12 +20,15 @@ public class Stack {
         return abanieStack[top--];
     }
 
-    public int peek() {
-        return abanieStack[top];
+    public int peek() {return abanieStack[top];
     }
 
     public boolean isEmpty() {
         return (top == -1);
+    }
+
+    public void showStack() {
+        System.out.println(Arrays.toString(abanieStack));
     }
 
 }

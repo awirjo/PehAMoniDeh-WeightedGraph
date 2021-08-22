@@ -26,21 +26,21 @@ public class App {
 
         Graph graph = new Graph();
 
-        graph.addVertex(fouta);
-        graph.addVertex(chantaki);
-        graph.addVertex(melissa);
-        graph.addVertex(domswijk);
-        graph.addVertex(leoswijk);
-        graph.addVertex(dekleurBordo);
-        graph.addVertex(kirpa);
-        graph.addVertex(kanhaai);
-        graph.addVertex(vanTrickster);
-        graph.addVertex(kromosroto);
-        graph.addVertex(achaiber);
-        graph.addVertex(badjalala);
-        graph.addVertex(ramdinho);
-        graph.addVertex(koeldipsang);
-        graph.addVertex(boefdraad);
+        graph.addVertex(fouta); //0
+        graph.addVertex(chantaki); //1
+        graph.addVertex(melissa); //2
+        graph.addVertex(domswijk); //3
+        graph.addVertex(leoswijk); //4
+        graph.addVertex(dekleurBordo); //5
+        graph.addVertex(kirpa); //6
+        graph.addVertex(kanhaai); //7
+        graph.addVertex(vanTrickster); //8
+        graph.addVertex(kromosroto); //9
+        graph.addVertex(achaiber); //10
+        graph.addVertex(badjalala); //11
+        graph.addVertex(ramdinho); //12
+        graph.addVertex(koeldipsang); //13
+        graph.addVertex(boefdraad); //14
 
         graph.addEdge(fouta, kanhaai, 55);
         graph.addEdge(fouta, ramdinho, 30);
@@ -65,15 +65,20 @@ public class App {
         graph.addEdge(boefdraad, kirpa, 60);
         graph.addEdge(boefdraad, fouta, 90);
 
-        //graph.visualizeAdjMatrix();
-        //graph.displayVertexAbaniesName(10);
-        graph.bfsVertex1EdgeSeparated(domswijk);
-        //graph.displayAllVertices();
-        OneEdgeQueue oneEdgeQueue = new OneEdgeQueue();
-        oneEdgeQueue.showQueue();
+//        graph.visualizeAdjMatrix();
 
+//     graph.displayVertexAbaniesName(10);
+//        graph.displayAllVertices();
 
+//        graph.bfsVertex1EdgeSeparated(fouta);
 
+//        graph.bfs();
+
+//        System.out.println("");
+//        graph.oneEdgeQueue.showQueue();
+//        graph.dfsEdgeStepByVertex(fouta);
+
+        graph.dfsEdgeStepByVertex(fouta, boefdraad);
 
 
 

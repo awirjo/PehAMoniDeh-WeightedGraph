@@ -9,7 +9,6 @@ public class Graph {
     private final int MAX_PERSONS = 15;
     private int INFINITY = 100;
     private Vertex vertexArray[]; //array of vertices
-    private Vertex vertexList[]; // list of vertices
     private int adjMatrix[][]; //adjacency matrix
     private int nVertex; //current number of vertices
     private int nTree; //number of verts in tree
@@ -17,7 +16,11 @@ public class Graph {
     private int currentVert;
     private int startToCurrent;
 
-    private Queue bfsQueue;
+    public OneEdgeQueue oneEdgeQueue;
+    public Stack stack;
+    public PathStack pathStack;
+    //public Queue bfsQueue;
+
 
     public Graph() { //adjacency matrix setup to 0
         vertexArray = new Vertex[MAX_PERSONS];
@@ -49,23 +52,24 @@ public class Graph {
     public void displayVertex(int vertex){
         System.out.println(vertexArray[vertex].abanies);
     }
-    public void addEdgeByName(Abanies sourceAbanie, Abanies destinationAbanie, int distance) {
-        int indexOfSourceAbanie = 0;
-        int indexOfDestinationAbanie = 0;
-        for (Vertex vertex : vertexArray) {
-            if (vertex.abanies == sourceAbanie) {
-                indexOfSourceAbanie = Arrays.asList(vertexArray).indexOf(vertex);
-                break;
-            }
-        }
-        for (Vertex vertex : vertexArray) {
-            if (vertex.abanies == destinationAbanie) {
-                indexOfDestinationAbanie = Arrays.asList(vertexArray).indexOf(vertex);
-                break;
-            }
-        }
-        adjMatrix[indexOfSourceAbanie][indexOfDestinationAbanie] = distance;
-        adjMatrix[indexOfDestinationAbanie][indexOfSourceAbanie] = distance;
+
+    public void addEdge(Abanies sourceAbanie, Abanies destinationAbanie, int moneyFlow) {
+        int indexOfSourceAbanie = findIndexOfItem(sourceAbanie);
+        int indexOfDestinationAbanie = findIndexOfItem(destinationAbanie);
+//        for (Vertex vertex : vertexArray) {
+//            if (vertex.abanies == sourceAbanie) {
+//                indexOfSourceAbanie = Arrays.asList(vertexArray).indexOf(vertex);
+//                break;
+//            }
+//        }
+//        for (Vertex vertex : vertexArray) {
+//            if (vertex.abanies == destinationAbanie) {
+//                indexOfDestinationAbanie = Arrays.asList(vertexArray).indexOf(vertex);
+//                break;
+//            }
+//        }
+        adjMatrix[indexOfSourceAbanie][indexOfDestinationAbanie] = moneyFlow;
+//        adjMatrix[indexOfDestinationAbanie][indexOfSourceAbanie] = moneyFlow;
     }
 
     public int findIndexOfItem(Abanies searchItem) {
@@ -110,32 +114,61 @@ public class Graph {
         }
     }
 
-    /*public void bfs(){
-        vertexArray[0].wasVisited = true;
-        displayVertex(0);
-        bfsQueue.insert(0);
-        int vertexMarked;
-
-        while (!bfsQueue.isEmpty()){
-            int vertexFirst = bfsQueue.remove();
-
-            while ((vertexMarked = getAdjUnvisitedVertex(vertexFirst)) != -1){
-                vertexArray[vertexMarked].wasVisited = true;
-                displayVertex(vertexMarked);
-                bfsQueue.insert(vertexMarked);
+    public void dfsEdgeStepByVertex(Abanies startingAbanie, Abanies destinationAbanie) {
+        int startingVertexIndex = findIndexOfItem(startingAbanie);
+        int destinationVertexIndex = findIndexOfItem(destinationAbanie);
+        vertexArray[startingVertexIndex].wasVisited = true;
+        displayVertex(startingVertexIndex);
+        stack.push(startingVertexIndex);
+        pathStack.push(startingVertexIndex);
+        while(!stack.isEmpty()) {
+            int stackPeek = stack.peek();
+            int unvisitedVertex = getAdjUnvisitedVertex(stackPeek);
+            if(unvisitedVertex == -1) { //if row has no weights anymore(wasVisited all true) only 1000
+                stack.pop();
+                pathStack.pop();
+            } else {
+                vertexArray[unvisitedVertex].wasVisited = true;
+                displayVertex(unvisitedVertex);
+                stack.push(unvisitedVertex);
+                pathStack.push(unvisitedVertex);
+                if (unvisitedVertex == destinationVertexIndex) {
+                    break;
+                }
             }
         }
-        for(int j=0; j<nVertex; j++)
-            vertexArray[j].wasVisited = false;
-    }*/
+        for(int index = 0; index < nVertex; index++) {
+            vertexArray[index].wasVisited = false;
+        }
+        pathStack.showStack();
+    }
+
+//    public void bfs(){
+//        vertexArray[0].wasVisited = true;
+//        displayVertex(0);
+//        bfsQueue.insert(0);
+//        int vertexMarked;
+//
+//        while (!bfsQueue.isEmpty()){
+//            int vertexFirst = bfsQueue.remove();
+//
+//            while ((vertexMarked = getAdjUnvisitedVertex(vertexFirst)) != -1){
+//                vertexArray[vertexMarked].wasVisited = true;
+//                displayVertex(vertexMarked);
+//                bfsQueue.insert(vertexMarked);
+//            }
+//        }
+//        for(int j=0; j<nVertex; j++)
+//            vertexArray[j].wasVisited = false;
+//    }
 
     // gets vertices 1 edge separated from starting vertex
     public void bfsVertex1EdgeSeparated(Abanies startingVertex) {
         int startingVertexIndex = findIndexOfItem(startingVertex);
         TestQueue testQueue = new TestQueue();
-        OneEdgeQueue oneEdgeQueue = new OneEdgeQueue();
+//        OneEdgeQueue oneEdgeQueue = new OneEdgeQueue();
         vertexArray[startingVertexIndex].wasVisited = true;
-        //displayVertexAbaniesName(startingVertexIndex);
+        displayVertexAbaniesName(startingVertexIndex);
         testQueue.insert(new QueObject(startingVertexIndex, 0));
 
         int destinationVertex;
@@ -153,8 +186,8 @@ public class Graph {
                     oneEdgeQueue.insert(destinationVertex);
                 }
                 testQueue.insert(new QueObject(destinationVertex, edgeNumber + 1));
-                testQueue.showQueue();
-                oneEdgeQueue.showQueue();
+//                testQueue.showQueue();
+//                oneEdgeQueue.showQueue();
             }
         }
         testQueue.makeEmpty();

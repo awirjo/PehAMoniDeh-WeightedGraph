@@ -11,6 +11,30 @@ public class Abanies {
         this.tjoekoe = tjoekoe;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getTjoekoe() {
+        return tjoekoe;
+    }
+
+    public void setTjoekoe(int tjoekoe) {
+        this.tjoekoe = tjoekoe;
+    }
+
     @Override
     public String toString() {
         return "Abanies{" +

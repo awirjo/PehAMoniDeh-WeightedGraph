@@ -78,7 +78,8 @@ public class App {
 //        graph.oneEdgeQueue.showQueue();
 //        graph.dfsEdgeStepByVertex(fouta);
 
-        graph.dfsEdgeStepByVertex(fouta, boefdraad);
+//        graph.dfsEdgeStepByVertex(fouta, boefdraad);
+        graph.shortestPath(chantaki, melissa);
 
 
 

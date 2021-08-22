@@ -4,8 +4,8 @@ public class DistanceParent {
     public int distance;
     public int parentVert;
 
-    public DistanceParent(int d, int pv){
-        distance = d;
+    public DistanceParent(int pv, int d){
         parentVert = pv;
+        distance = d;
     }
 }

@@ -1,7 +1,7 @@
 package PehAMoniDeh.Datastructure;
 
 public class Stack {
-    private final int SIZE = 20;
+    private final int SIZE = 15;
     private int[] abanieStack;
     private int top;
 

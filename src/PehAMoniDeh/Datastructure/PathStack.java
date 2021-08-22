@@ -3,7 +3,7 @@ package PehAMoniDeh.Datastructure;
 import java.util.Arrays;
 
 public class PathStack {
-    private final int SIZE = 20;
+    private final int SIZE = 15;
     private int[] abanieStack;
     private int top;
 

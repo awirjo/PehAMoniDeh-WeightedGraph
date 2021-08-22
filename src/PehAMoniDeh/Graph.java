@@ -212,5 +212,167 @@ public class Graph {
         }
     }
 
+    public void shortestPath(Abanies startingVertex, Abanies destinationVertex) {
+        int startingVertexIndex = findIndexOfItem(startingVertex);
+        adjustVertexListAdjMatrix(startingVertexIndex, true);
+
+        vertexArray[0].isInTree = true;
+        nTree = 1;
+        for(int index = 0; index < nVertex; index++) {
+            int tempDistance = adjMatrix[0][index];
+            disPar[index] = new DistanceParent(0, tempDistance);
+        }
+        // hulpcode
+//        System.out.println(Arrays.toString(shortestPath));
+//        System.out.println("");
+        while(nTree < nVertex) {
+            int indexOfVertexWithMinDistance = getIndexOfVertexWithMinDistance();
+            int minDistance = disPar[indexOfVertexWithMinDistance].distance;
+            if (minDistance == INFINITY) {
+                System.out.println("There are unreachable vertices");
+                break;
+            } else {
+                currentVert = indexOfVertexWithMinDistance;
+                startToCurrent = disPar[indexOfVertexWithMinDistance].distance;
+            }
+            vertexArray[currentVert].isInTree = true;
+            nTree++;
+            adjustShortestPath();
+        }
+//        System.out.println(Arrays.toString(shortestPath));
+//        System.out.println("");
+        displayPaths();
+        nTree = 0;
+        for(int index = 0; index< nVertex; index++)
+            vertexArray[index].isInTree = false;
+        adjustVertexListAdjMatrix(startingVertexIndex, false);
+    }
+
+    public int getIndexOfVertexWithMinDistance() {
+        int minDistance = INFINITY;
+        int vertexIndexWithMinDistance = 0;
+        for(int column = 1; column < nVertex; column++) {
+            if(!vertexArray[column].isInTree && (disPar[column].distance < minDistance)) {
+                minDistance = disPar[column].distance;
+                vertexIndexWithMinDistance = column;
+            }
+        }
+        return vertexIndexWithMinDistance;
+    }
+
+    public void adjustShortestPath() {
+        int column = 1;
+        while(column < nVertex) {
+            if( vertexArray[column].isInTree) {
+                column++;
+                continue;
+            }
+            int currentToFringeDistance = adjMatrix[currentVert][column];
+            int startToFringeDistance = startToCurrent + currentToFringeDistance;
+            int shortestPathDist = disPar[column].distance;
+
+            if(startToFringeDistance < shortestPathDist) {
+                disPar[column].parentVert = currentVert;
+                disPar[column].distance = startToFringeDistance;
+            }
+            column++;
+        }
+        // hulpcode
+//        System.out.println(Arrays.toString(shortestPath));
+//        System.out.println("");
+    }
+
+    public void adjustVertexListAdjMatrix(int vertexToSwap, boolean adjust) {
+        if (adjust) {
+            Vertex tempHolderVertex = vertexArray[vertexToSwap];
+            vertexArray[vertexToSwap] = vertexArray[0];
+            vertexArray[0] = tempHolderVertex;
+//        System.out.println(Arrays.toString(vertexList));
+
+            for (int columnCount = 0; columnCount < nVertex; columnCount++) {
+                int tempHolderWeight = adjMatrix[vertexToSwap][columnCount];
+                adjMatrix[vertexToSwap][columnCount] = adjMatrix[0][columnCount];
+                adjMatrix[0][columnCount] = tempHolderWeight;
+            }
+            for (int rowCount = 0; rowCount < nVertex; rowCount++) {
+                int tempHolderWeight = adjMatrix[rowCount][vertexToSwap];
+                adjMatrix[rowCount][vertexToSwap] = adjMatrix[rowCount][0];
+                adjMatrix[rowCount][0] = tempHolderWeight;
+            }
+            visualizeAdjMatrix();
+        } else {
+            Vertex tempHolderVertex = vertexArray[vertexToSwap];
+            vertexArray[vertexToSwap] = vertexArray[0];
+            vertexArray[0] = tempHolderVertex;
+//        System.out.println(Arrays.toString(vertexList));
+
+            for (int columnCount = 0; columnCount < nVertex; columnCount++) {
+                int tempHolderWeight = adjMatrix[0][columnCount];
+                adjMatrix[0][columnCount] = adjMatrix[vertexToSwap][columnCount];
+                adjMatrix[vertexToSwap][columnCount] = tempHolderWeight;
+            }
+            for (int rowCount = 0; rowCount < nVertex; rowCount++) {
+                int tempHolderWeight = adjMatrix[rowCount][0];
+                adjMatrix[rowCount][0] = adjMatrix[rowCount][vertexToSwap];
+                adjMatrix[rowCount][vertexToSwap] = tempHolderWeight;
+            }
+            visualizeAdjMatrix();
+        }
+    }
+
+    public void displayPaths() {
+        for(int j = 0; j < nVertex; j++) {
+            System.out.print(vertexArray[j].abanies.getName() + "=");
+            if(disPar[j].distance == INFINITY) {
+                System.out.print("inf");
+            }
+            else {
+                System.out.print(disPar[j].distance);
+            }
+            String parent = vertexArray[disPar[j].parentVert].abanies.getName();
+            System.out.print("(" + parent + ") ");
+        }
+        System.out.println("");
+    }
+
+//    public void displayPaths2(Abanies startingVertex, Abanies destinationVertex) {  // voor andere starting vertex moet nog aangepast worden
+//        for(int index = 0; index < nVertex; index++) {
+//            if (index == findIndexOfItem(destinationVertex)) {
+//                System.out.print("To travel from " + startingVertex + " to ");
+//                stack.push(vertexArray[index].abanies);
+//                System.out.print(vertexArray[index].abanies);
+//                System.out.print(" with a cost of ");
+//                if(disPar[index].distance == INFINITY) {
+//                    System.out.print("inf");
+//                }
+//                else {
+//                    System.out.print(disPar[index].distance + " ");
+//                }
+////            System.out.print(" travel via ");
+//                int parentVert = disPar[index].parentVert;
+//                Abanies parent = vertexArray[parentVert].abanies;
+//                stack.push(parent);
+////            System.out.print(parent);
+//                int parentOf = parentVert;
+//                boolean notA = true;
+//                while (notA) {
+////                System.out.print(" after traveling via ");
+//                    int temp = disPar[parentOf].parentVert;
+//                    Abanies parentOfParent = vertexArray[disPar[parentOf].parentVert].abanies;
+//                    stack.push(parentOfParent);
+////                System.out.print(parentOfParent + " ");
+//                    parentOf = temp;
+//                    if (parentOfParent == startingVertex)
+//                        notA = false;
+//                }
+//                System.out.print("| ");
+//                while (!stack.isEmpty()) {
+//                    System.out.print((char)stack.pop() + " => ");
+//                }
+//                System.out.println("");
+//            }
+//        }
+//    }
+
 
 }

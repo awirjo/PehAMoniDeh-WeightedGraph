@@ -1,10 +1,7 @@
 package PehAMoniDeh;
 
-import PehAMoniDeh.Datastructure.OneEdgeQueue;
-import PehAMoniDeh.Datastructure.QueObject;
-import PehAMoniDeh.Datastructure.TestQueue;
+import PehAMoniDeh.Datastructure.*;
 import PehAMoniDeh.entity.Abanies;
-import PehAMoniDeh.Datastructure.Queue;
 
 import java.util.Arrays;
 
@@ -32,9 +29,11 @@ public class Graph {
             for(int b=0; b<MAX_PERSONS; b++)
                 adjMatrix[a][b] = INFINITY;
         disPar = new DistanceParent[MAX_PERSONS]; // shortest paths
-        bfsQueue = new Queue();
 
+        //bfsQueue = new Queue();
         oneEdgeQueue = new OneEdgeQueue();
+        stack = new Stack();
+        pathStack = new PathStack();
 
     }
 
@@ -148,7 +147,7 @@ public class Graph {
 
             while ((destinationVertex = getAdjUnvisitedVertex(sourceVertex)) != -1) {
                 vertexArray[destinationVertex].wasVisited = true;
-                displayVertexAbaniesName(destinationVertex);
+                displayVertex(destinationVertex);
                 System.out.println("This abanie is " + (edgeNumber + 1) + " edge(s) separated from start");
                 if (edgeNumber == 0) {
                     oneEdgeQueue.insert(destinationVertex);
@@ -166,7 +165,7 @@ public class Graph {
 
     public int getAdjUnvisitedVertex(int vertexFirst) {
         for(int j=0; j<nVertex; j++)
-            if(adjMatrix[vertexFirst][j]==1 && vertexList[j].wasVisited==false)
+            if(adjMatrix[vertexFirst][j] != INFINITY && vertexArray[j].wasVisited==false)
                 return j;
             return -1;
     }

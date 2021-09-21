@@ -1,26 +1,30 @@
 package PehAMoniDeh.Datastructure;
 
+import PehAMoniDeh.Entity.Abanies;
+
 import java.util.Arrays;
 
-public class PathStack {
+public class StackDisplayPath {
     private final int SIZE = 15;
-    private int[] abanieStack;
+    private Abanies[] abanieStack;
     private int top;
 
-    public PathStack(){
-        abanieStack = new int[SIZE];
+
+    public StackDisplayPath(){
+        abanieStack = new Abanies[SIZE];
         top = -1;
     }
 
-    public void push(int item) {
-        abanieStack[++top] = item;
+    public void push(Abanies abaniesStack) {
+        abanieStack[++top] = abaniesStack;
     }
 
-    public int pop() {
+    public Abanies pop() {
         return abanieStack[top--];
     }
 
-    public int peek() {return abanieStack[top];
+    public Abanies peek() {
+        return abanieStack[top];
     }
 
     public boolean isEmpty() {

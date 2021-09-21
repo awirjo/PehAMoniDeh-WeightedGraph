@@ -1,4 +1,4 @@
-package PehAMoniDeh.entity;
+package PehAMoniDeh.Entity;
 
 public class Abanies {
     public String name;

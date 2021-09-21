@@ -1,10 +1,7 @@
 package PehAMoniDeh.App;
 
-import PehAMoniDeh.Datastructure.OneEdgeQueue;
-import PehAMoniDeh.Datastructure.QueObject;
-import PehAMoniDeh.Datastructure.TestQueue;
-import PehAMoniDeh.Graph;
-import PehAMoniDeh.entity.Abanies;
+import PehAMoniDeh.Graph.Graph;
+import PehAMoniDeh.Entity.Abanies;
 
 public class App {
     public static void main(String[] args) {
@@ -26,21 +23,21 @@ public class App {
 
         Graph graph = new Graph();
 
-        graph.addVertex(fouta); //0
-        graph.addVertex(chantaki); //1
-        graph.addVertex(melissa); //2
-        graph.addVertex(domswijk); //3
-        graph.addVertex(leoswijk); //4
-        graph.addVertex(dekleurBordo); //5
-        graph.addVertex(kirpa); //6
-        graph.addVertex(kanhaai); //7
-        graph.addVertex(vanTrickster); //8
-        graph.addVertex(kromosroto); //9
-        graph.addVertex(achaiber); //10
-        graph.addVertex(badjalala); //11
-        graph.addVertex(ramdinho); //12
-        graph.addVertex(koeldipsang); //13
-        graph.addVertex(boefdraad); //14
+        graph.addVertex(fouta);         //0
+        graph.addVertex(chantaki);      //1
+        graph.addVertex(melissa);       //2
+        graph.addVertex(domswijk);      //3
+        graph.addVertex(leoswijk);      //4
+        graph.addVertex(dekleurBordo);  //5
+        graph.addVertex(kirpa);         //6
+        graph.addVertex(kanhaai);       //7
+        graph.addVertex(vanTrickster);  //8
+        graph.addVertex(kromosroto);    //9
+        graph.addVertex(achaiber);      //10
+        graph.addVertex(badjalala);     //11
+        graph.addVertex(ramdinho);      //12
+        graph.addVertex(koeldipsang);   //13
+        graph.addVertex(boefdraad);     //14
 
         graph.addEdge(fouta, kanhaai, 55);
         graph.addEdge(fouta, ramdinho, 30);
@@ -67,20 +64,18 @@ public class App {
 
 //        graph.visualizeAdjMatrix();
 
-//     graph.displayVertexAbaniesName(10);
-//        graph.displayAllVertices();
-
-//        graph.bfsVertex1EdgeSeparated(fouta);
-
-//        graph.bfs();
-
+        //This method will show the money flow between a Vertex (person) and the direct neighbors
+//        graph.bfsSearch(fouta);
 //        System.out.println("");
-//        graph.oneEdgeQueue.showQueue();
-//        graph.dfsEdgeStepByVertex(fouta);
 
-//        graph.dfsEdgeStepByVertex(fouta, boefdraad);
-        graph.shortestPath(chantaki, melissa);
+        //This method will show the money flow and the persons related to the starting abanie and the destination abanie
+//        graph.dfsSearch(fouta, boefdraad);
 
+        //This method will show the path with the least money flow between abanies
+//        graph.shortestPath(kromosroto, achaiber);
+
+        //This method will show the path with the highest money flow between abanies
+//        graph.longestPath(fouta, boefdraad);
 
 
 

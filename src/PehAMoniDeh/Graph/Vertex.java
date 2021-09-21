@@ -1,15 +1,15 @@
-package PehAMoniDeh;
+package PehAMoniDeh.Graph;
 
-import PehAMoniDeh.entity.Abanies;
+import PehAMoniDeh.Entity.Abanies;
 
 public class Vertex {
     public boolean wasVisited;
-    public boolean isInTree;
+    public boolean isInGraph;
 
     public Abanies abanies;
     public Vertex(Abanies abanies) {
         this.abanies = abanies;
         wasVisited= false;
-        isInTree = false;
+        isInGraph = false;
     }
 }

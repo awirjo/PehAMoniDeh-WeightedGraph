@@ -1,11 +1,11 @@
 package PehAMoniDeh.Datastructure;
 
-public class Stack {
+public class DfsStack {
     private final int SIZE = 15;
     private int[] abanieStack;
     private int top;
 
-    public Stack(){
+    public DfsStack(){
         abanieStack = new int[SIZE];
         top = -1;
 
